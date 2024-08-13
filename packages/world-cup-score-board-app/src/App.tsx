@@ -1,14 +1,8 @@
-import { Team } from "@world-cup/common";
+import { TeamsList } from "./components/teams-list";
+import { TeamsProvider } from "./shared/teams-context";
 
-function App() {
-  const sampleTeam: Team = {
-    shortName: "ITA",
-    flag: "",
-    id: 1,
-    name: "Italy",
-  };
-
-  return (
+const App = () => (
+  <TeamsProvider>
     <div className="h-screen p-10 bg-green-200">
       <div className="flex justify-center ">
         <h1 className="text-3xl text-blue-500">
@@ -16,12 +10,9 @@ function App() {
         </h1>
       </div>
 
-      <div className="flex mt-20 gap-x-3">
-        <h2>{sampleTeam.name}</h2>
-        <p>({sampleTeam.shortName})</p>
-      </div>
+      <TeamsList />
     </div>
-  );
-}
+  </TeamsProvider>
+);
 
 export default App;
