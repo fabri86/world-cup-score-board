@@ -1,4 +1,18 @@
 {
-  "name": "sport-radar",
-  "packageManager": "yarn@4.1.1"
+  "name": "world-cup",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "./packages/world-cup-score-board-app",
+      "./packages/server",
+      "./packages/common"
+    ]
+  },
+  "scripts": {
+    "start": "concurrently \"yarn workspace @world-cup/server run start\" \"yarn workspace @world-cup/world-cup-score-board-app run dev\""
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
