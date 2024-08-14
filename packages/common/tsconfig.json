@@ -11,7 +11,5 @@
     "declaration": true,
     "declarationMap": true,
     "emitDeclarationOnly": true
-  },
-
-  "include": ["src"]
+  }
 }
