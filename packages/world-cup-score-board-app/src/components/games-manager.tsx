@@ -41,6 +41,7 @@ export const GamesManager = () => {
     };
 
     // TODO games must be reordered (unfortunately) by max number of total goals
+    // TODO if same score, by most recent!!
     setLiveGames([...liveGames, newGame]);
   }, [selectedAwayTeam, selectedHomeTeam, liveGames]);
 
