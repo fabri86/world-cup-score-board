@@ -15,7 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["node", "vitest'globals", "vitest/jsdom"],
+    "types": ["node", "vitest/globals", "vitest/jsdom"],
     "baseUrl": "./src",
     "paths": {
       "@world-cup/common/*": ["../common/dist/*"]

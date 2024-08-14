@@ -2,7 +2,8 @@ export type Team = {
   id: number;
   name: string;
   shortName: string;
-  flag: string;
+  crest?: string;
+  flag?: string;
 };
 
 export type Game = {

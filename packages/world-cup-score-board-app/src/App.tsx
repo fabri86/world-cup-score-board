@@ -1,16 +1,13 @@
-import { TeamsList } from "./components/teams-list";
+import { GamesManager } from "./components/games-manager";
 import { TeamsProvider } from "./shared/teams-context";
 
 const App = () => (
   <TeamsProvider>
-    <div className="h-screen p-10 bg-green-200">
-      <div className="flex justify-center ">
-        <h1 className="text-3xl text-blue-500">
-          The Live World Cup Score Board
-        </h1>
-      </div>
-
-      <TeamsList />
+    <div className="flex flex-col h-screen px-2 py-8 bg-green-200">
+      <h1 className="self-center my-4 text-4xl text-blue-500">
+        The Live World Cup Score Board
+      </h1>
+      <GamesManager />
     </div>
   </TeamsProvider>
 );

@@ -55,7 +55,7 @@ export const GameTile = ({
       {!game.isFinished && (
         <span className="absolute bottom-2">
           <button
-            className="p-1 px-2 text-sm font-semibold text-white bg-green-600 border border-gray-500 rounded-md hover:bg-yellow-400"
+            className="p-1 px-2 text-sm font-semibold text-white bg-green-600 border border-gray-300 rounded-md hover:bg-yellow-400"
             aria-label={`end game ${game.id}`}
             onClick={(e) => onGameFinished(e, game.id)}
           >
