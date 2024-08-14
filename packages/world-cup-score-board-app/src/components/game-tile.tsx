@@ -6,16 +6,13 @@ import { TeamInfo } from "../components/team-info";
 
 type GameTileProps = {
   game: Game;
-  onGameFinished: (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    gameId: string
-  ) => void;
+  onGameEnded: (gameId: string) => void;
   onGoalScored: (gameId: string, team: GameTeam) => void;
 };
 
 export const GameTile = ({
   game,
-  onGameFinished,
+  onGameEnded,
   onGoalScored,
 }: GameTileProps) => {
   const onGoalScoredHandler = useCallback(
@@ -26,7 +23,10 @@ export const GameTile = ({
   );
 
   return (
-    <div className="relative flex justify-center h-40 p-3 px-3 bg-gray-100 border border-gray-300 rounded-md shadow-md w-96">
+    <div
+      className="relative flex justify-center h-40 p-3 px-3 bg-gray-100 border border-gray-300 rounded-md shadow-md w-96"
+      data-testid={`tile ${game.id}`}
+    >
       <div className="flex justify-center w-full gap-x-5">
         <TeamInfo
           team={game.homeTeam}
@@ -57,7 +57,7 @@ export const GameTile = ({
           <button
             className="p-1 px-2 text-sm font-semibold text-white bg-green-600 border border-gray-300 rounded-md hover:bg-yellow-400"
             aria-label={`end game ${game.id}`}
-            onClick={(e) => onGameFinished(e, game.id)}
+            onClick={() => onGameEnded(game.id)}
           >
             END MATCH
           </button>

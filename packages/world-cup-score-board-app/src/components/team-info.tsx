@@ -1,8 +1,7 @@
-import { GameTeam, Team } from "@world-cup/common";
-import { IoFootballSharp } from "react-icons/io5";
-import Tippy from "@tippyjs/react";
-
 import cx from "classnames";
+import Tippy from "@tippyjs/react";
+import { IoFootballSharp } from "react-icons/io5";
+import { GameTeam, Team } from "@world-cup/common";
 
 type TeamInfoProps = {
   team: Team;
@@ -55,7 +54,9 @@ export const TeamInfo = ({
               "self-start": !isHome,
             }
           )}
-          aria-label={isHome ? "home team scores" : "away team scores"}
+          aria-label={
+            isHome ? "home team scores a goal" : "away team scores a goal"
+          }
           onClick={(e) =>
             onGoalScored(e, isHome ? GameTeam.HomeTeam : GameTeam.AwayTeam)
           }

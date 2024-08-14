@@ -18,6 +18,7 @@ export const useFetchTeams = () => {
   useEffect(() => {
     const fetchTeams = async () => {
       setIsLoading(true);
+      setError("");
 
       try {
         const {
@@ -26,7 +27,14 @@ export const useFetchTeams = () => {
           },
         } = await axios.get<IApiResponse>(getTeamsUrl(), {});
 
-        setTeams(teams);
+        const teamsDtoObjects = teams.map(({ name, shortName, id, crest }) => ({
+          id,
+          name,
+          shortName,
+          flag: crest,
+        }));
+
+        setTeams(teamsDtoObjects);
       } catch (error) {
         setError(
           "An error occurred fetching teams. Please reload the app and try again"
