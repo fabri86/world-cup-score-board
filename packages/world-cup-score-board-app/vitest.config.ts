@@ -9,7 +9,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@world-cup/common": path.resolve(__dirname, "../common/src"),
+      "@world-cup/common/*": path.resolve(__dirname, "../common/dist/*"),
     },
   },
 });

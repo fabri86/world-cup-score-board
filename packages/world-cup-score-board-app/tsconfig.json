@@ -15,10 +15,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["node", "vitest/globals", "vitest/jsdom"],
-    "baseUrl": ".",
+    "types": ["node", "vitest'globals", "vitest/jsdom"],
+    "baseUrl": "./src",
     "paths": {
-      "@world-cup/common/*": ["../common/src/*"]
-    }
+      "@world-cup/common/*": ["../common/dist/*"]
+    },
+    "typeRoots": ["./node_modules/@types", "../common/dist"]
   }
 }
