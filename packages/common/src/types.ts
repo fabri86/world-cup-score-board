@@ -19,3 +19,8 @@ export enum GameTeam {
   HomeTeam = 1,
   AwayTeam = 2,
 }
+
+export enum Teams {
+  HOME = "home",
+  AWAY = "away",
+}

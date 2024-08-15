@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useMemo } from "react";
-import { Team } from "@world-cup/common";
+import { Team, Teams } from "@world-cup/common";
 
 export type TeamSelectorProps = {
   isHome: boolean;
@@ -30,10 +30,12 @@ export const TeamSelector = ({
 
   return (
     <div className="flex flex-grow gap-x-2">
-      <span className="text-black">{isHome ? "Home:" : "Away:"}</span>
+      <span className="text-black capitalize">{`${
+        isHome ? Teams.HOME : Teams.AWAY
+      }:`}</span>
       <select
         className="w-full outline-none"
-        aria-label={`select ${isHome ? "home" : "away"} team`}
+        aria-label={`select ${isHome ? Teams.HOME : Teams.AWAY} team`}
         value={selected?.id ?? ""}
         onChange={handleSelectedValue}
       >
@@ -42,7 +44,9 @@ export const TeamSelector = ({
         </option>
         {teamsOptions.map(({ id, name }) => (
           <option
-            aria-label={`select ${isHome ? "home" : "away"} option ${name}`}
+            aria-label={`select ${
+              isHome ? Teams.HOME : Teams.AWAY
+            } option ${name}`}
             key={`team-${id}-option`}
             value={id}
           >

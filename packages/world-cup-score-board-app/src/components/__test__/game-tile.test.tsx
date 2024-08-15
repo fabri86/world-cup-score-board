@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 
 import { Game, GameTeam } from "@world-cup/common";
 import { GameTile } from "../game-tile";
@@ -24,9 +24,13 @@ describe("Game tile", () => {
     awayTeamGoals: 0,
   };
 
+  beforeEach(() => {
+    vi.resetAllMocks();
+  });
+
   it("should display the info about a game", () => {
     render(
-      <GameTile game={game} onGoalScored={vi.fn()} onGameFinished={vi.fn()} />
+      <GameTile game={game} onGoalScored={vi.fn()} onGameEnded={vi.fn()} />
     );
 
     expect(screen.getByText(/italy/i)).toBeInTheDocument();
@@ -39,15 +43,11 @@ describe("Game tile", () => {
     const mockGoalFn = vi.fn();
 
     render(
-      <GameTile
-        game={game}
-        onGoalScored={mockGoalFn}
-        onGameFinished={vi.fn()}
-      />
+      <GameTile game={game} onGoalScored={mockGoalFn} onGameEnded={vi.fn()} />
     );
 
     const homeTeamScoresButton = screen.getByRole("button", {
-      name: "home team scores",
+      name: "home team scores a goal",
     });
 
     expect(homeTeamScoresButton).toBeInTheDocument();
@@ -61,15 +61,11 @@ describe("Game tile", () => {
     const mockGoalFn = vi.fn();
 
     render(
-      <GameTile
-        game={game}
-        onGoalScored={mockGoalFn}
-        onGameFinished={vi.fn()}
-      />
+      <GameTile game={game} onGoalScored={mockGoalFn} onGameEnded={vi.fn()} />
     );
 
     const awayTeamScoresButton = screen.getByRole("button", {
-      name: "away team scores",
+      name: "away team scores a goal",
     });
 
     expect(awayTeamScoresButton).toBeInTheDocument();
@@ -83,7 +79,7 @@ describe("Game tile", () => {
     const mockEndFn = vi.fn();
 
     render(
-      <GameTile game={game} onGoalScored={vi.fn()} onGameFinished={mockEndFn} />
+      <GameTile game={game} onGoalScored={vi.fn()} onGameEnded={mockEndFn} />
     );
 
     const endButton = screen.getByRole("button", {
@@ -94,6 +90,6 @@ describe("Game tile", () => {
 
     fireEvent.click(endButton);
 
-    expect(mockEndFn).toHaveBeenCalledWith(expect.any(Object), "1-vs-2");
+    expect(mockEndFn).toHaveBeenCalledWith("1-vs-2");
   });
 });

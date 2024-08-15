@@ -10,7 +10,7 @@
     ]
   },
   "scripts": {
-    "start": "concurrently \"yarn workspace @world-cup/server run start\" \"yarn workspace @world-cup/world-cup-score-board-app run dev\""
+    "start": "concurrently \"yarn workspace @world-cup/common run build\" \"yarn workspace @world-cup/server run start\" \"yarn workspace @world-cup/world-cup-score-board-app run dev\""
   },
   "packageManager": "yarn@4.4.0",
   "devDependencies": {
