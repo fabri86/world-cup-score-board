@@ -1,3 +1,5 @@
+import { Moment } from "moment";
+
 export type Team = {
   id: number;
   name: string;
@@ -13,6 +15,7 @@ export type Game = {
   homeTeamGoals: number;
   awayTeamGoals: number;
   isFinished: boolean;
+  kickOff: Moment;
 };
 
 export enum GameTeam {

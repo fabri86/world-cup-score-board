@@ -8,7 +8,6 @@ export type TeamSelectorProps = {
   onSelectedTeam: (selectedTeamId: number) => void;
 };
 
-// TODO reduce the amount of hard coded values
 export const TeamSelector = ({
   isHome,
   teams,

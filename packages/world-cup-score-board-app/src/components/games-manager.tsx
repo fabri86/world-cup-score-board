@@ -1,9 +1,10 @@
+import { useCallback, useState } from "react";
+import moment from "moment";
+import { toast } from "react-toastify";
 import { Game, GameTeam, Team } from "@world-cup/common";
 import { GamesList } from ".//games-list";
-import { useCallback, useState } from "react";
 import { useFetchTeams } from "./../hooks/use-fetch-teams";
 import { TeamSelector } from "./team-selector";
-import { toast } from "react-toastify";
 import {
   findGamesWithTeams,
   isTeamPlayingGame,
@@ -45,11 +46,30 @@ export const GamesManager = () => {
       homeTeamGoals: 0,
       awayTeamGoals: 0,
       isFinished: false,
+      kickOff: moment(),
     };
 
-    // TODO games must be reordered (unfortunately) by max number of total goals
-    // TODO if same score, by most recent!!
-    setLiveGames([...liveGames, newGame]);
+    // CONSIDERATION
+    // It might have sense to keep the list ordered:
+
+    // const searchedIndex = liveGames.findIndex(
+    //   (game) =>
+    //     game.awayTeamGoals + game.homeTeamGoals <=
+    //     newGame.awayTeamGoals + newGame.homeTeamGoals
+    // );
+
+    // const newGames = [
+    //   ...liveGames.slice(0, searchedIndex),
+    //   newGame,
+    //   ...liveGames.slice(searchedIndex),
+    // ];
+
+    // ...but we might have 16 games being played at the same time in the extreme case, which means 16 items in the array....
+    // Therefore, I do not see a consistent gain of performance in this scenario
+
+    const newGames = [...liveGames, newGame];
+
+    setLiveGames(newGames);
 
     toast.success(
       `${selectedHomeTeam.name} vs ${selectedAwayTeam.name} kicked off`
@@ -115,7 +135,6 @@ export const GamesManager = () => {
     [liveGames]
   );
 
-  // TODO: introduce ERROR BOUNDARY?
   if (loadingError) {
     return (
       <p className="text-red-400">
@@ -127,7 +146,7 @@ export const GamesManager = () => {
   return isLoading ? (
     <div>Loading teams...</div>
   ) : (
-    // TODO introduce LOADER component?
+    // TODO IMPROVE LOADER
     <>
       <GamesList
         games={liveGames}
@@ -135,7 +154,7 @@ export const GamesManager = () => {
         onGameEnded={onEndedGameHandler}
       />
 
-      <div className="absolute flex flex-col items-center justify-center w-1/3 p-4 transform -translate-x-1/2 bg-gray-100 border border-gray-300 rounded-md shadow-md h-26 left-1/2 bottom-10 gap-y-3">
+      <div className="absolute flex flex-col items-center justify-center w-1/3 p-2 transform -translate-x-1/2 bg-gray-100 border border-gray-300 rounded-md shadow-md h-26 left-1/2 bottom-10 gap-y-3">
         <div className="flex justify-center w-full gap-x-5">
           <TeamSelector
             isHome

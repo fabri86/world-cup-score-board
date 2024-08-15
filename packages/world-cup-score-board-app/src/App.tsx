@@ -7,7 +7,7 @@ import { TeamsProvider } from "./shared/teams-context";
 const App = () => (
   <TeamsProvider>
     <>
-      <div className="flex flex-col h-screen px-2 py-8 bg-green-200">
+      <div className="flex flex-col h-screen px-2 py-3 bg-green-200">
         <h1 className="self-center my-4 text-4xl text-blue-500">
           The Live World Cup Score Board
         </h1>
