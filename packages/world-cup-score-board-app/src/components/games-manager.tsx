@@ -3,6 +3,11 @@ import { GamesList } from ".//games-list";
 import { useCallback, useState } from "react";
 import { useFetchTeams } from "./../hooks/use-fetch-teams";
 import { TeamSelector } from "./team-selector";
+import { toast } from "react-toastify";
+import {
+  findGamesWithTeams,
+  isTeamPlayingGame,
+} from "../utils/games-validator";
 
 export const GamesManager = () => {
   const { teams, isLoading, error: loadingError } = useFetchTeams();
@@ -14,21 +19,23 @@ export const GamesManager = () => {
 
   const onCreateGameHandler = useCallback(() => {
     if (!selectedHomeTeam || !selectedAwayTeam) {
-      // TODO toast error: 'please select two teams'
-      return;
+      return toast.error("Please select two teams");
     }
 
-    if (
-      liveGames.find(
-        (game) =>
-          game.homeTeam.id === selectedHomeTeam.id ||
-          game.awayTeam.id === selectedHomeTeam.id ||
-          game.homeTeam.id === selectedAwayTeam.id ||
-          game.awayTeam.id === selectedAwayTeam.id
-      )
-    ) {
-      // TODO toast error: 'one of the selected teams is already playing a game'
-      return;
+    if (selectedHomeTeam === selectedAwayTeam) {
+      return toast.error("Please select two different teams");
+    }
+
+    const gameWithSelectedTeams = findGamesWithTeams({
+      games: liveGames,
+      homeTeam: selectedHomeTeam,
+      awayTeam: selectedAwayTeam,
+    });
+
+    if (gameWithSelectedTeams) {
+      return isTeamPlayingGame(selectedHomeTeam, gameWithSelectedTeams)
+        ? toast.error(`${selectedHomeTeam.name} is already playing a game`)
+        : toast.error(`${selectedAwayTeam.name} is already playing a game`);
     }
 
     const newGame: Game = {
@@ -43,6 +50,10 @@ export const GamesManager = () => {
     // TODO games must be reordered (unfortunately) by max number of total goals
     // TODO if same score, by most recent!!
     setLiveGames([...liveGames, newGame]);
+
+    toast.success(
+      `${selectedHomeTeam.name} vs ${selectedAwayTeam.name} kicked off`
+    );
   }, [selectedAwayTeam, selectedHomeTeam, liveGames]);
 
   const onSelectedHomeTeamHandler = useCallback(
@@ -68,11 +79,14 @@ export const GamesManager = () => {
       const gameIdx = liveGames.findIndex((game) => game.id === gameId);
       if (gameIdx !== -1) {
         const updatedGames = [...liveGames];
+        const game = updatedGames[gameIdx];
 
         if (team === GameTeam.HomeTeam) {
-          updatedGames[gameIdx].homeTeamGoals++;
+          game.homeTeamGoals++;
+          toast.success(`${game.homeTeam.name} scored a goal!`);
         } else {
-          updatedGames[gameIdx].awayTeamGoals++;
+          game.awayTeamGoals++;
+          toast.success(`${game.awayTeam.name} scored a goal!`);
         }
 
         setLiveGames(updatedGames);
@@ -90,6 +104,11 @@ export const GamesManager = () => {
           ...liveGames.slice(searchedIndex + 1),
         ];
 
+        const endedGame = liveGames[searchedIndex];
+
+        toast.info(
+          `Final whistle for ${endedGame.homeTeam.name}-${endedGame.awayTeam.name}. What a game!`
+        );
         setLiveGames(updatedGames);
       }
     },

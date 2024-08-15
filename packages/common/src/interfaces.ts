@@ -1,5 +1,3 @@
-// TODO: include more interfaces
-
 import { Team } from "./types";
 
 export interface IGame {

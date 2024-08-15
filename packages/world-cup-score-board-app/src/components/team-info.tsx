@@ -28,6 +28,12 @@ export const TeamInfo = ({
           "self-start": !isHome,
         })}
       >
+        <img
+          className="w-8 h-8"
+          alt={`${team.name} flag img`}
+          src={team.flag}
+        />
+
         <Tippy content={<span>{team.name}</span>}>
           <span
             id={`team-${team.id}-tooltip`}
@@ -36,8 +42,6 @@ export const TeamInfo = ({
             {team.name}
           </span>
         </Tippy>
-
-        {/* TODO: add flag: <img alt={`${team.name} flag img`} src={team.flag} /> */}
 
         <span className="text-3xl font-semibold">{goals}</span>
       </div>

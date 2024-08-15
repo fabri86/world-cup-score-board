@@ -24,7 +24,7 @@ export const GameTile = ({
 
   return (
     <div
-      className="relative flex justify-center h-40 p-3 px-3 bg-gray-100 border border-gray-300 rounded-md shadow-md w-96"
+      className="relative flex justify-center h-40 p-6 px-3 bg-gray-100 border border-gray-300 rounded-md shadow-md w-96"
       data-testid={`tile ${game.id}`}
     >
       <div className="flex justify-center w-full gap-x-5">
