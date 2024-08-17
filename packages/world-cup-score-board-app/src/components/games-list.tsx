@@ -14,6 +14,8 @@ export const GamesList = ({
   onGoalScored,
   onGameEnded,
 }: GamesListProps) => {
+  // THOUGHTS on useMemo
+  // This useMemo is quite useless since the games are always a new array when the score changes or a new game kicks off/gets terminated. But it could come in hand if more props are passed to the GamesList
   const orderedGames = useMemo(
     () =>
       games.sort((a, b) => {

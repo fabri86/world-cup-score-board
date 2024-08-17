@@ -50,8 +50,9 @@ export const GamesManager = () => {
       kickOff: moment(),
     };
 
-    // CONSIDERATION
-    // It might have sense to keep the list ordered:
+    // THOUGHTS on Big O and algorithm complexity:
+
+    // Without the extra sorting requirement, keeping the collection ordered on insertion might had be meaningful/performant:
 
     // const searchedIndex = liveGames.findIndex(
     //   (game) =>
@@ -65,8 +66,9 @@ export const GamesManager = () => {
     //   ...liveGames.slice(searchedIndex),
     // ];
 
-    // ...but we might have 16 games being played at the same time in the extreme case, which means 16 items in the array....
-    // Therefore, I do not see a consistent gain of performance in this scenario
+    // ...but on the other hand, we have a requirement to sort games by max amount of goals combined with the kickoff time,
+
+    // Since we have at most 16 games being played at the same time, which means 16 items in the collection... I do not see a consistent gain of performance in this scenario, so I decided to insert the new items in the tail
 
     const newGames = [...liveGames, newGame];
 
@@ -130,6 +132,7 @@ export const GamesManager = () => {
         toast.info(
           `Final whistle for ${endedGame.homeTeam.name}-${endedGame.awayTeam.name}. What a game!`
         );
+
         setLiveGames(updatedGames);
       }
     },
