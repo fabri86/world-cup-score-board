@@ -43,3 +43,4 @@ After cloning the app, from the 'sport-radar' folder (one level above the packag
 
 - yarn (to install dependencies)
 - yarn start (to build the common module and run concurrently the FE and BE)
+- open the browser on http://localhost:5173/ as suggested by Vite in the console and enjoy the world cup ⚽🏆😎
