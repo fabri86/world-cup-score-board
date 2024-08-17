@@ -34,7 +34,11 @@ export const useFetchTeams = () => {
           flag: crest,
         }));
 
-        setTeams(teamsDtoObjects);
+        setTeams(
+          teamsDtoObjects.sort((a, b) =>
+            a.name < b.name ? -1 : a.name > b.name ? 1 : 0
+          )
+        );
       } catch (error) {
         setError(
           "An error occurred fetching teams. Please reload the app and try again"

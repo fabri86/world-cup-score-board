@@ -2,13 +2,14 @@ import { useCallback, useState } from "react";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { Game, GameTeam, Team } from "@world-cup/common";
-import { GamesList } from ".//games-list";
+import { GamesList } from "./games-list";
 import { useFetchTeams } from "./../hooks/use-fetch-teams";
 import { TeamSelector } from "./team-selector";
 import {
   findGamesWithTeams,
   isTeamPlayingGame,
 } from "../utils/games-validator";
+import { Loader } from "../shared/loader";
 
 export const GamesManager = () => {
   const { teams, isLoading, error: loadingError } = useFetchTeams();
@@ -137,16 +138,17 @@ export const GamesManager = () => {
 
   if (loadingError) {
     return (
-      <p className="text-red-400">
-        An error occurred while fetching teams. Please try later
-      </p>
+      <div className="flex justify-center">
+        <h2 className="my-20 text-2xl text-red-400">
+          An error occurred while fetching teams. Please try later
+        </h2>
+      </div>
     );
   }
 
   return isLoading ? (
-    <div>Loading teams...</div>
+    <Loader text="Loading teams..." />
   ) : (
-    // TODO IMPROVE LOADER
     <>
       <GamesList
         games={liveGames}
